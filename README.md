@@ -1,6 +1,6 @@
 # Usage
 
-first:
+## First:
 
 You can download this program in "CTFd/plugin"
 
@@ -9,21 +9,21 @@ cd CTFd/plugins/
 git clone https://github.com/lanpesk/CTFd_plugin_firstkill.git
 ```
 
-or download this program under any path of the CTFd project.
+Or download this program under any path of the CTFd project.
 
 
 
-second：
+## Second：
 
-add the import code in "CTFd/api/v1/challenges.py"
+Add the import code in "CTFd/api/v1/challenges.py"
 
 ```python
 from CTFd.plugins.CTFd_plugin_firstkill import check_solve_place
 ```
 
-if you download the file in other path, the import path should be change.
+If you download the file in other path, the import path should be change.
 
-then add this code in function `ChallengeAttempt.post` which is in "CTFd/api/v1/challenges.py":
+Then add this code in function `ChallengeAttempt.post` which is in "CTFd/api/v1/challenges.py":
 
 ```python
 try:
@@ -34,7 +34,7 @@ except:
 
 ```python
 origin:
-	    status, message = chal_class.attempt(challenge, request)
+            status, message = chal_class.attempt(challenge, request)
             if status:  # The challenge plugin says the input is right
                 if ctftime() or current_user.is_admin():
                     chal_class.solve(
@@ -57,7 +57,7 @@ origin:
                 }
     
 after:
-	    status, message = chal_class.attempt(challenge, request)
+            status, message = chal_class.attempt(challenge, request)
             if status:  # The challenge plugin says the input is right
                 if ctftime() or current_user.is_admin():
                     chal_class.solve(
@@ -85,3 +85,18 @@ after:
                 }
 ```
 
+
+
+## Third:
+
+Change the target url in "\_\_init\_\_.py":
+
+```python
+def send_kill_msg(account_name, chall_name, index):
+    try:
+        requests.post(target_url, json={"user":account_name, "chall":chall_name, "place":index},timeout=1)
+    except:
+        pass
+```
+
+Now if there a new solve in top three solves, CTFd will send a message to the target url. And you can receive the message and do more operation.

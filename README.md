@@ -23,7 +23,7 @@ from CTFd.plugins.CTFd_plugin_firstkill import check_solve_place
 
 if you download the file in other path, the import path should be change.
 
-then add this code in function `ChallengeAttempt.post`:
+then add this code in function `ChallengeAttempt.post` which is in "CTFd/api/v1/challenges.py":
 
 ```python
 try:
@@ -34,7 +34,7 @@ except:
 
 ```python
 origin:
-			status, message = chal_class.attempt(challenge, request)
+	    status, message = chal_class.attempt(challenge, request)
             if status:  # The challenge plugin says the input is right
                 if ctftime() or current_user.is_admin():
                     chal_class.solve(
@@ -57,7 +57,7 @@ origin:
                 }
     
 after:
-			status, message = chal_class.attempt(challenge, request)
+	    status, message = chal_class.attempt(challenge, request)
             if status:  # The challenge plugin says the input is right
                 if ctftime() or current_user.is_admin():
                     chal_class.solve(
